@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FictoToon</title>
+<link rel="icon" type="image/x-icon" href="logo.jpg"></link>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+
+   (function(){
+      emailjs.init("hnD1hEezxxUoRT34I"); // Unga Public Key-ai inga podunga
+   })();
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0f0f1a;color:white;overflow-x:hidden}
+
+/* ===== ORDER PAGE STYLING ===== */
+
+#order{
+max-width:500px;
+margin:auto;
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:20px;
+backdrop-filter:blur(15px);
+box-shadow:0 0 25px rgba(255,204,112,0.3);
+}
+
+#order h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+#order input,
+#order textarea{
+background:rgba(255,255,255,0.15);
+color:white;
+border:none;
+border-radius:12px;
+padding:12px;
+margin-bottom:12px;
+}
+
+#order textarea{
+resize:none;
+height:90px;
+}
+
+/* ===== Stylish Location Button ===== */
+.location-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#ffcc70,#ff8c42);
+color:black;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,204,112,0.6);
+}
+
+.location-btn:hover{
+transform:scale(1.05);
+background:white;
+}
+
+/* ===== Payment Card Style ===== */
+
+.payment-options{
+display:flex;
+gap:15px;
+margin:15px 0;
+}
+
+.payment-card{
+flex:1;
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+border:2px solid transparent;
+}
+
+.payment-card:hover{
+transform:translateY(-5px);
+}
+
+.payment-card input{
+display:none;
+}
+
+.payment-card.selected{
+border:2px solid #ffcc70;
+background:rgba(255,204,112,0.2);
+}
+
+/* ===== Confirm Button ===== */
+
+.confirm-btn{
+width:100%;
+padding:14px;
+background:#ffcc70;
+color:black;
+border:none;
+border-radius:15px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+transition:0.3s;
+}
+
+.confirm-btn:hover{
+background:white;
+transform:scale(1.05);
+}
+
+/* ===== Opening Animation ===== */
+#intro{
+position:fixed;
+width:100%;
+height:100vh;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:1000;
+animation:fadeOut 3s forwards 3s;
+}
+.book{
+width:120px;height:80px;
+background:white;
+position:relative;
+animation:openBook 3s ease-in-out;
+}
+.book:before{
+content:"";
+position:absolute;
+width:60px;height:80px;
+background:#ffcc70;
+left:0;
+transform-origin:left;
+animation:pageTurn 3s ease-in-out;
+}
+@keyframes pageTurn{
+0%{transform:rotateY(0)}
+50%{transform:rotateY(-180deg)}
+100%{transform:rotateY(0)}
+}
+@keyframes fadeOut{
+to{opacity:0;visibility:hidden}
+}
+
+/* ================= NAVBAR ================= */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:rgba(0,0,0,0.8);
+position:sticky;top:0;
+}
+
+.logo{
+font-family:'Cinzel',serif;
+font-size:28px;
+color:#ffcc70;
+}
+
+nav ul{display:flex;gap:25px;list-style:none}
+nav ul li a{
+color:white;text-decoration:none;cursor:pointer;
+transition:0.3s;font-weight:500}
+nav ul li a:hover{color:#ffcc70}
+
+/* ================= SECTIONS ================= */
+section{display:none;padding:60px 40px;min-height:100vh}
+.active{display:block}
+
+h1,h2{font-family:'Cinzel',serif;color:#ffcc70;margin-bottom:20px}
+
+/* ================= HOME BACKGROUND ================= */
+#home{
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+/* ================= SHOP BACKGROUND ================= */
+#shop{
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* ================= CONTACT BACKGROUND ================= */
+#contact{
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+/* ================= ABOUT BACKGROUND ================= */
+#about{
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+/* ================= COMIC BACKGROUND ================= */
+#comic{
+background-color:grey;
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+/* ================= FICTION BACKGROUND ================= */
+#fiction{
+background-color:grey;
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* ================= BUTTON STYLE ================= */
+.btn{
+padding:12px 25px;
+background:#ffcc70;
+color:black;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+margin-top:15px;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,204,112,0.7);
+}
+
+.btn:hover{
+background:white;
+transform:scale(1.05);
+}
+
+/* ================= GRID ================= */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;margin-top:30px
+}
+
+.card{
+background:rgba(255,255,255,0.1);
+padding:20px;border-radius:15px;text-align:center;
+backdrop-filter:blur(10px);
+transition:0.3s
+}
+.card:hover{transform:translateY(-8px)}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.price{color:#ffcc70;font-weight:bold;margin:8px 0}
+
+/* ================= FORM ================= */
+input,textarea,select{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:8px
+}
+
+.success{
+background:#28a745;
+padding:12px;
+border-radius:8px;
+margin-top:15px;
+display:none;
+text-align:center
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#000
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+<div class="book">
+<div class="page"></div>
+<div class="page"></div>
+<div class="page"></div>
+<div class="page"></div>
+</div>
+<h1 class="intro-title">FictoToon</h1>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+<div class="logo">FictoToon</div>
+<ul>
+<li><a onclick="showPage('home')">Home</a></li>
+<li><a onclick="showPage('shop')">Shop</a></li>
+<li><a onclick="showPage('about')">About</a></li>
+<li><a onclick="showPage('contact')">Contact</a></li>
+</ul>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+<h1>Welcome to FictoToon</h1>
+
+<div class="grid">
+<div class="card" onclick="showPage('fiction')">
+<h2>Fiction</h2>
+<button class="btn">Explore Fiction</button>
+</div>
+
+<div class="card" onclick="showPage('comic')">
+<h2>Comics</h2>
+<button class="btn">Explore Comics & Anime </button>
+</div>
+</div>
+
+<button class="btn" onclick="showPage('shop')">Shop Now</button>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+<h1>Shop Books</h1>
+<div class="grid">
+
+<div class="card">
+<img src="divergent.jpg">
+<h3>Divergent</h3>
+<p class="price">₹400</p>
+<button class="btn" onclick="openOrder('Divergent',400)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="the kite runner.jpg">
+<h3>the kite runner</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('the kite runner',350)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="harrypotter.jpg">
+<h3>Harry Potter</h3>
+<p class="price">₹500</p>
+<button class="btn" onclick="openOrder('Harry Potter',500)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Spider Man.jpg">
+<h3>Spider Man</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('Spider Man',250)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Naruto Manga.jpg">
+<h3>Naruto Manga</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('Naruto Manga',350)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="One Piece.jpg">
+<h3>One Piece</h3>
+<p class="price">₹450</p>
+<button class="btn" onclick="openOrder('One Piece',450)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Your Name.jpg">
+<h3>Your Name</h3>
+<p class="price">₹150</p>
+<button class="btn" onclick="openOrder('Your Name',150)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="space.jpg">
+<h3>A Space Odessey</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('A Space Odessey',250)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Jujutsu Kaisen.jpg">
+<h3>Jujutsu Kaisen</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('Jujutsu Kaisen',350)">Add to Cart</button>
+</div>
+<div class="card">
+<img src="Avatar.jpg">
+<h3>Avatar</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('Avatar',250)">Add to Cart</button>
+</div>
+
+
+</div>
+</section>
+
+<!-- FICTION -->
+<section id="fiction">
+<h1>Fiction Books</h1>
+<p>Collection of romantic, thriller and fantasy fiction books.</p>
+<div class="grid">
+
+<div class="card">
+<img src="divergent.jpg">
+<h3>Divergent</h3>
+<p class="price">₹400</p>
+<button class="btn" onclick="openOrder('Divergent',400)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="harrypotter.jpg">
+<h3>Harry Potter</h3>
+<p class="price">₹500</p>
+<button class="btn" onclick="openOrder('Harry Potter',500)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="the kite runner.jpg">
+<h3>the kite runner</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('the kite runner',350)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="space.jpg">
+<h3>A Space Odessey</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('A Space Odessey',250)">Add to Cart</button>
+</div>
+<div class="card">
+<img src="Avatar.jpg">
+<h3>Avatar</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('Avatar',250)">Add to Cart</button>
+</div>
+
+
+</div>
+
+
+
+</section>
+
+<!-- COMIC -->
+<section id="comic">
+<h1>Comic & Anime Books</h1>
+<p>Collection of comic books.</p>
+<div class="grid">
+
+<div class="card">
+<img src="Spider Man.jpg">
+<h3>Spider Man</h3>
+<p class="price">₹250</p>
+<button class="btn" onclick="openOrder('Spider Man',250)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Naruto Manga.jpg">
+<h3>Naruto Manga</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('Naruto Manga',350)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="One Piece.jpg">
+<h3>One Piece</h3>
+<p class="price">₹450</p>
+<button class="btn" onclick="openOrder('One Piece',450)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Your Name.jpg">
+<h3>Your Name</h3>
+<p class="price">₹150</p>
+<button class="btn" onclick="openOrder('Super Hero',350)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Jujutsu Kaisen.jpg">
+<h3>Jujutsu Kaisen</h3>
+<p class="price">₹350</p>
+<button class="btn" onclick="openOrder('Jujutsu Kaisen',350)">Add to Cart</button>
+</div>
+
+
+
+</div>
+
+</section>
+
+<!-- ORDER DETAILS -->
+
+<section id="order">
+<h1>Order Details</h1>
+<p id="bookInfo"></p>
+
+<input type="text" id="custName" placeholder="Customer Name">
+<input type="email" id="custEmail" placeholder="Email">
+<input type="text" id="custPhone" placeholder="Phone Number">
+
+<textarea id="custAddress" placeholder="Delivery Address"></textarea>
+
+<button type="button" class="location-btn" onclick="getLocation()">
+Use My Location 📍
+</button>
+
+<p id="locationStatus"></p>
+
+<h3 style="margin-top:15px;">Select Payment Method</h3>
+
+<div class="payment-options">
+
+<label class="payment-card" onclick="selectPayment(this)">
+<input type="radio" name="payment" value="Online Payment">
+💳 <br> Online Payment
+</label>
+
+<label class="payment-card" onclick="selectPayment(this)">
+<input type="radio" name="payment" value="Cash on Delivery">
+🚚 <br> Cash on Delivery
+</label>
+
+</div>
+
+<button class="confirm-btn" onclick="sendOrderEmail()">
+Confirm Order
+</button>
+
+</section>
+<!-- ABOUT -->
+<section id="about">
+<center>
+<h1>About FictoToon</h1>
+<p>
+FictoToon is a premium online bookstore for Fiction and Comic & Anime lovers.
+We aim to create a magical reading experience with modern design,
+secure payment options and fast delivery service.
+</p>
+<br>
+<br>
+<h3 style="text-align:center;">Why Choose Us?</h3>
+<ul style="padding:20px;">
+<p>Wide Fiction & Comic Collection</p>
+<p>Affordable Prices</p>
+<p>Secure Online & Offline Payment</p>
+<p>Fast Delivery</p>
+<p>Customer Support</p>
+</ul>
+</center>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h1>Contact Us</h1>
+
+<input type="text" id="contactName" placeholder="Name">
+<input type="email" id="contactEmail" placeholder="Email">
+<textarea id="contactMessage" placeholder="Message"></textarea>
+
+<button class="btn" onclick="sendContactEmail()">Send Message</button>
+</section>
+<footer>© 2026 FictoToon | Designed by Sameera</footer>
+
+<script>
+function showPage(page){
+document.querySelectorAll("section").forEach(sec=>sec.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+}
+
+function openOrder(name,price){
+document.getElementById("bookInfo").innerHTML=
+"Book: "+name+" | Price: ₹"+price;
+showPage('order');
+}
+
+navigator.geolocation.getCurrentPosition(function(pos){
+document.getElementById("location").value=
+pos.coords.latitude+", "+pos.coords.longitude;
+});
+
+function confirmOrder(){
+document.getElementById("success").style.display="block";
+}
+</script>
+
+<script>
+
+let selectedBook = "";
+
+/* ================= PAGE SWITCH ================= */
+function showPage(page){
+document.querySelectorAll("section").forEach(sec=>sec.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+}
+
+/* ================= OPEN ORDER ================= */
+function openOrder(name,price){
+selectedBook = name + " (₹" + price + ")";
+document.getElementById("bookInfo").innerHTML =
+"Book: "+name+" | Price: ₹"+price;
+showPage('order');
+}
+
+/* ================= LOCATION ================= */
+function getLocation() {
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(showPosition, showError);
+document.getElementById("locationStatus").innerHTML = "Getting location...";
+} else {
+alert("Geolocation not supported");
+}
+}
+
+function showPosition(position) {
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+
+document.getElementById("custAddress").value =
+"Latitude: " + lat + ", Longitude: " + lon;
+
+document.getElementById("locationStatus").innerHTML =
+"Location Added Successfully ✅";
+}
+
+function showError(error) {
+alert("Location permission denied or error occurred.");
+}
+
+/* ================= CONTACT EMAIL ================= */
+function sendContactEmail(){
+
+const params = {
+user_name: document.getElementById("contactName").value,
+user_email: document.getElementById("contactEmail").value,
+message: document.getElementById("contactMessage").value
+};
+
+emailjs.send("service_txwjxiy","template_i3gy8b6",params)
+.then(()=>{
+alert("Message sent successfully 📩");
+})
+.catch((err)=>console.log(err));
+}
+
+/* ================= ORDER EMAIL ================= */
+function sendOrderEmail(){
+
+let paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+if(!paymentMethod){
+alert("Please select payment method");
+return;
+}
+
+if(selectedBook === ""){
+alert("Please select a book first");
+return;
+}
+
+const params = {
+book_name: selectedBook,
+user_name: document.getElementById("custName").value,
+user_email: document.getElementById("custEmail").value,
+phone: document.getElementById("custPhone").value,
+address: document.getElementById("custAddress").value,
+payment: paymentMethod.value
+};
+
+emailjs.send("service_txwjxiy","template_78787nq",params)
+.then(()=>{
+alert("Order Placed Successfully 🎉");
+showPage('home');
+})
+.catch((err)=>console.log(err));
+}
+
+function selectPayment(card){
+document.querySelectorAll(".payment-card")
+.forEach(c=>c.classList.remove("selected"));
+
+card.classList.add("selected");
+card.querySelector("input").checked = true;
+}
+
+</script>
+
+</body>
+</html>
