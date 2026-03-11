@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ungadomain.com/sitemap.xml
+Sitemap: https://fictotoon.vercel.app/sitemap.xml
