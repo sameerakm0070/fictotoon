@@ -435,6 +435,84 @@ padding:20px;
 }
 
 }
+/* ===== PERFECT CENTER ALIGNMENT FOR MOBILE ===== */
+
+@media screen and (max-width:768px){
+
+/* Remove side spacing */
+body{
+overflow-x:hidden;
+}
+
+/* Section center */
+section{
+padding:30px 15px;
+margin:auto;
+text-align:center;
+}
+
+/* Grid center */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
+justify-content:center;
+align-items:center;
+}
+
+/* Card center */
+.card{
+width:90%;
+max-width:320px;
+margin:auto;
+}
+
+/* Image fix */
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+/* Buttons center */
+.btn{
+display:block;
+margin:10px auto;
+width:90%;
+max-width:250px;
+}
+
+/* Order form center */
+#order{
+width:90%;
+max-width:350px;
+margin:auto;
+}
+
+/* Payment options center */
+.payment-options{
+flex-direction:column;
+align-items:center;
+}
+
+.payment-card{
+width:90%;
+}
+
+.confirm-btn{
+width:90%;
+margin:auto;
+display:block;
+}
+
+.location-btn{
+width:90%;
+margin:auto;
+display:block;
+}
+
+}
+
 
 </style>
 </head>
@@ -638,7 +716,7 @@ padding:20px;
 <img src="Your Name.jpg">
 <h3>Your Name</h3>
 <p class="price">₹150</p>
-<button class="btn" onclick="openOrder('Super Hero',350)">Add to Cart</button>
+<button class="btn" onclick="openOrder('Your Name',150)">Add to Cart</button>
 </div>
 
 <div class="card">
