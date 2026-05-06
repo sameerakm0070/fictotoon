@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Inga branch: 'main' nu mention panni irukkom
+                git branch: 'main', url: 'https://github.com/ashmi2005412/Coffeetower'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // XAMPP folder create panni files copy pannum
+                bat 'if not exist "C:\\xampp\\htdocs\\Coffeetower" mkdir "C:\\xampp\\htdocs\\Coffeetower"'
+                bat 'xcopy /s /y /i * "C:\\xampp\\htdocs\\Coffeetower\\"'
+            }
+        }
+    }
+}
